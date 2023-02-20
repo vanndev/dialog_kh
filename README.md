@@ -86,7 +86,7 @@ For example, to create dialog kh, you could use the following code:
 ```
 <img src="https://github.com/chhumsovann/dialog_kh/raw/main/img/alert_dialog_01.jpg"  width="200"/>
 
-## Example 02
+## Example 03
 For example, to create dialog kh, you could use the following code:
 
 ```dart
@@ -121,3 +121,61 @@ For example, to create dialog kh, you could use the following code:
 ```
 
 <img src="https://github.com/chhumsovann/dialog_kh/raw/main/img/alert_dialog_02.jpg"  width="200"/>
+
+## Example 04
+For example, to create dialog kh, you could use the following code:
+
+```dart
+ /// Show bottom sheet
+SizedBox(
+    height: 50,
+    width: 280,
+    child: ElevatedButton(
+        child: const Text('Bottom sheet message'),
+        onPressed: () {
+            DialogKh.messageKh(
+                context: context,
+                radius: 15,
+                title: "Message",
+                description: "Congratulation your work is good",
+                leading: const Icon(Icons.email, size: 40),
+            );
+        },
+    ),
+),
+```
+
+<img src="https://github.com/chhumsovann/dialog_kh/raw/main/img/show_message.jpg"  width="200"/>
+
+## Example 05
+For example, to create dialog kh, you could use the following code:
+
+```dart
+ /// Show bottom sheet
+SizedBox(
+    height: 50,
+    width: 280,
+    child: ElevatedButton(
+        child: const Text('Bottom sheet'),
+        onPressed: () {
+            DialogKh.bottomSheetKh(
+                context: context,
+                height: 500,
+                header: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
+                ),
+                onConfirm: () {
+                /// Do something...
+                Navigator.pop(context);
+                },
+                onCancel: () {
+                /// Do something...
+                Navigator.pop(context);
+            });
+        },
+    ),
+),
+```
+
+<img src="https://github.com/chhumsovann/dialog_kh/raw/main/img/bottom_sheet.jpg"  width="200"/>
