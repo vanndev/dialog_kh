@@ -137,12 +137,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ElevatedButton(
                 child: const Text('Bottom sheet message'),
                 onPressed: () {
-                  DialogKh.bottomSheetKh(
+                  DialogKh.messageKh(
                     context: context,
-                    height: 80,
                     radius: 15,
                     title: "Message",
                     description: "Congratulation your work is good",
+                    leading: const Icon(Icons.email, size: 40),
                   );
                 },
               ),

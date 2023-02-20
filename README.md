@@ -1,18 +1,7 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Dialog kh library
+A Flutter library to help you create animated, simple, style, custom dialogs in your app.
+Dialog kh is opensource library developed by <a href="https://kimsoer.site/">Voern Kimsoer</a> with <a href="https://www.youtube.com/channel/UCeOdLQeAytUW38kgLUbZ2BA">Vann Dev</a>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
 ## Features
 
@@ -25,22 +14,40 @@ know whether this package might be useful for them.
 - Header can customize widget
 - Bottom can customize widget
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+1. Add the latest version of package to your pubspec.yaml (and run`dart pub get`):
+```yaml
+dependencies:
+  dialog_kh: ^0.0.1
+```
+2. Import the package and use it in your Flutter App.
 ```dart
-const like = 'sample';
+import 'package:dialog_kh/dialog_kh.dart';
 ```
 
-## Additional information
+## Example
+For example, to create dialog kh, you could use the following code:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+   /// Show alert message
+            SizedBox(
+              width: 280,
+              height: 50,
+              child: ElevatedButton(
+                child: const Text('Show alert message'),
+                onPressed: () {
+                  DialogKh.alertDialogKh(
+                    context: context,
+                    isAutoClosed: true, // default: true
+                    seconds: 2,
+                    header: const Icon(Icons.check_circle, color: Colors.green, size: 100),
+                    title: "Congratulations",
+                    description: "Congratulation your work is good",
+                    radius: 30,
+                  );
+                },
+              ),
+            ),
+```
+<img src="https://github.com/chhumsovann/dialog_kh/raw/main/img/alert_message.jpg"  width="200"/>

@@ -1,7 +1,8 @@
 name: dialog_kh
 description: A Flutter library to help you create animated, simple, style, custom dialogs in your app.
 version: 0.0.1
-homepage:
+homepage: https://github.com/chhumsovann/dialog_kh
+repository: https://github.com/chhumsovann/dialog_kh.git
 
 environment:
   sdk: '>=2.19.2 <3.0.0'

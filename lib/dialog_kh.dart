@@ -159,6 +159,57 @@ class DialogKh {
     });
   }
 
+  static Future<dynamic> messageKh({
+    required BuildContext context,
+    double? radius,
+    String? title,
+    Color? titleColor,
+    String? description,
+    Color? descColor,
+    String? fontFamily,
+    Widget? leading,
+    Widget? trailing,
+  }) async {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(radius ?? 20),
+          topLeft: Radius.circular(radius ?? 20),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: 80,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              leading ?? Container(),
+              const SizedBox(width: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title ?? 'Success',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: titleColor, fontFamily: fontFamily),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description ?? 'Your request successfully',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: descColor, fontFamily: fontFamily),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 10),
+              trailing ?? Container(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static Future<dynamic> bottomSheetKh({
     required BuildContext context,
     double? height,
@@ -188,75 +239,59 @@ class DialogKh {
         ),
       ),
       builder: (context) {
-        return Container(
-          height: height ?? 70.00,
-          padding: (height ?? 0) < 70 ? const EdgeInsets.symmetric(horizontal: 20) : null,
-          child: (height ?? 0) < 70
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        return SizedBox(
+          height: height ?? 280.00,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            children: [
+              header ?? Container(),
+              const SizedBox(height: 20),
+              Text(
+                title ?? "Congratulations",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: titleColor ?? Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: fontFamily,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                description ?? "Congratulation your work is good",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: fontFamily,
+                  fontWeight: FontWeight.w400,
+                  color: descColor ?? Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 20),
+              if (disableBtn == false)
+                Row(
                   children: [
-                    Text(
-                      title ?? 'Success',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: titleColor),
-                    ),
-                    Text(
-                      description ?? 'Your request successfully',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: descColor),
-                    ),
-                  ],
-                )
-              : ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  children: [
-                    header ?? Container(),
-                    const SizedBox(height: 20),
-                    Text(
-                      title ?? "Congratulations",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: titleColor ?? Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: fontFamily,
+                    Expanded(
+                      child: ArtButtonsKh(
+                        text: btnLabelR ?? "Cancel",
+                        textColor: labelColorBtnL,
+                        backgroundColor: backgroundColorBtnL ?? Colors.black,
+                        onPressed: onCancel,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      description ?? "Congratulation your work is good",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: fontFamily,
-                        fontWeight: FontWeight.w400,
-                        color: descColor ?? Colors.grey,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: ArtButtonsKh(
+                        text: btnLabelL ?? "Okay",
+                        textColor: labelColorBtnR,
+                        backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
+                        onPressed: onConfirm,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    if (disableBtn == false)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ArtButtonsKh(
-                              text: btnLabelR ?? "Cancel",
-                              textColor: labelColorBtnL,
-                              backgroundColor: backgroundColorBtnL ?? Colors.black,
-                              onPressed: onCancel,
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: ArtButtonsKh(
-                              text: btnLabelL ?? "Okay",
-                              textColor: labelColorBtnR,
-                              backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
-                              onPressed: onConfirm,
-                            ),
-                          ),
-                        ],
-                      ),
                   ],
                 ),
+            ],
+          ),
         );
       },
     );
