@@ -82,21 +82,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('Show alert dialog'),
                 onPressed: () {
                   DialogKh.alertDialogKh(
-                      context: context,
-                      isAutoClosed: false, // default: true
-                      disableBtn: false, // disable button is default os you need set disable to false, If you want to use button
-                      header: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
-                      title: "Congratulations",
-                      titleColor: Theme.of(context).primaryColor,
-                      description: "Congratulation your work is good",
-                      onConfirm: () {
-                        /// Do something...
-                        Navigator.pop(context);
-                      },
-                      onCancel: () {
-                        /// Do something...
-                        Navigator.pop(context);
-                      });
+                    context: context,
+                    isAutoClosed: false, // default: true
+                    disableBtn: false, // disable button is default os you need set disable to false, If you want to use button
+                    header: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
+                    title: "Congratulations",
+                    titleColor: Theme.of(context).primaryColor,
+                    description: "Congratulation your work is good",
+                    onConfirm: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                    onCancel: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                  );
                 },
               ),
             ),
