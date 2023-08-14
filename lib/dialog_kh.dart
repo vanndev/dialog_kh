@@ -93,7 +93,7 @@ class DialogKh {
                         children: [
                           Expanded(
                             child: ArtButtonsKh(
-                              text: btnLabelR ?? "Cancel",
+                              text: btnLabelL ?? "Cancel",
                               backgroundColor: backgroundColorBtnL ?? Colors.black,
                               onPressed: onCancel,
                               textColor: labelColorBtnL,
@@ -102,7 +102,7 @@ class DialogKh {
                           const SizedBox(width: 20),
                           Expanded(
                             child: ArtButtonsKh(
-                              text: btnLabelL ?? "Okay",
+                              text: btnLabelR ?? "Okay",
                               backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
                               onPressed: onConfirm,
                               textColor: labelColorBtnR,
