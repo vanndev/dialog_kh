@@ -19,7 +19,7 @@ Dialog kh is opensource library developed by <a href="https://kimsoer.site/">Voe
 1. Add the latest version of package to your pubspec.yaml (and run`dart pub get`):
 ```yaml
 dependencies:
-  dialog_kh: ^0.0.2
+  dialog_kh: ^0.0.3
 ```
 2. Import the package and use it in your Flutter App.
 ```dart
