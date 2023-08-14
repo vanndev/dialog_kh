@@ -93,6 +93,7 @@ class DialogKh {
                         children: [
                           Expanded(
                             child: ArtButtonsKh(
+                              fontFamily: fontFamily,
                               text: btnLabelL ?? "Cancel",
                               backgroundColor: backgroundColorBtnL ?? Colors.black,
                               onPressed: onCancel,
@@ -102,6 +103,7 @@ class DialogKh {
                           const SizedBox(width: 20),
                           Expanded(
                             child: ArtButtonsKh(
+                              fontFamily: fontFamily,
                               text: btnLabelR ?? "Okay",
                               backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
                               onPressed: onConfirm,
@@ -138,6 +140,7 @@ class DialogKh {
                     const SizedBox(height: 10),
                     if (isTextField ?? false)
                       ArtButtonsKh(
+                        fontFamily: fontFamily,
                         text: labelSubmit ?? "Submit",
                         backgroundColor: backgroundColorBtnSubmit ?? Theme.of(context).primaryColor,
                         onPressed: onSubmit,
@@ -273,6 +276,7 @@ class DialogKh {
                   children: [
                     Expanded(
                       child: ArtButtonsKh(
+                        fontFamily: fontFamily,
                         text: btnLabelR ?? "Cancel",
                         textColor: labelColorBtnL,
                         backgroundColor: backgroundColorBtnL ?? Colors.black,
@@ -282,6 +286,7 @@ class DialogKh {
                     const SizedBox(width: 20),
                     Expanded(
                       child: ArtButtonsKh(
+                        fontFamily: fontFamily,
                         text: btnLabelL ?? "Okay",
                         textColor: labelColorBtnR,
                         backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
