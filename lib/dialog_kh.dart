@@ -39,7 +39,7 @@ class DialogKh {
     double? radius,
     Widget? body,
   }) async {
-    showGeneralDialog(
+    return showGeneralDialog(
       context: context,
       barrierDismissible: isAutoClosed ?? false,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -185,7 +185,7 @@ class DialogKh {
     Widget? leading,
     Widget? trailing,
   }) async {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -256,7 +256,7 @@ class DialogKh {
     Color? labelColorBtnR,
     Color? labelColorBtnL,
   }) async {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
