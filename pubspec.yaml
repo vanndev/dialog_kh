@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  art_buttons_kh: ^0.0.5
+  art_buttons_kh: ^0.0.7
 
 dev_dependencies:
   flutter_test:
