@@ -37,6 +37,7 @@ class DialogKh {
     bool? disableBtn = true,
     Widget? bottom,
     double? radius,
+    Widget? body,
   }) async {
     showGeneralDialog(
       context: context,
@@ -75,16 +76,19 @@ class DialogKh {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      description ?? "Congratulation your work is good",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: fontFamily,
-                        fontWeight: FontWeight.w400,
-                        color: descColor ?? Colors.grey,
-                      ),
-                    ),
+                    if (body == null)
+                      Text(
+                        description ?? "Congratulation your work is good",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: fontFamily,
+                          fontWeight: FontWeight.w400,
+                          color: descColor ?? Colors.grey,
+                        ),
+                      )
+                    else
+                      body,
                     const SizedBox(height: 20),
 
                     /// Have two buttons when auto close = true
@@ -118,10 +122,18 @@ class DialogKh {
                       TextFormField(
                         cursorColor: Theme.of(context).primaryColor,
                         controller: txtEditController,
-                        style: TextStyle(fontSize: 12, color: descColor ?? Colors.grey, fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: descColor ?? Colors.grey,
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
                           labelText: labelTextField ?? "Comment",
-                          labelStyle: TextStyle(fontSize: 12, color: descColor ?? Colors.grey, fontWeight: FontWeight.w400),
+                          labelStyle: TextStyle(
+                            fontSize: 12,
+                            color: descColor ?? Colors.grey,
+                            fontWeight: FontWeight.w400,
+                          ),
                           contentPadding: const EdgeInsets.only(bottom: 10, top: 10, left: 10),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -195,12 +207,22 @@ class DialogKh {
                 children: [
                   Text(
                     title ?? 'Success',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: titleColor, fontFamily: fontFamily),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: titleColor,
+                      fontFamily: fontFamily,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     description ?? 'Your request successfully',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: descColor, fontFamily: fontFamily),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: descColor,
+                      fontFamily: fontFamily,
+                    ),
                   ),
                 ],
               ),
@@ -215,13 +237,14 @@ class DialogKh {
 
   static Future<dynamic> bottomSheetKh({
     required BuildContext context,
-    double? height,
+    double? heightFactor,
     double? radius,
     String? title,
     Color? titleColor,
     String? description,
     Color? descColor,
     Widget? header,
+    Widget? body,
     String? fontFamily,
     String? btnLabelR,
     String? btnLabelL,
@@ -235,6 +258,7 @@ class DialogKh {
   }) async {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(radius ?? 20),
@@ -242,8 +266,8 @@ class DialogKh {
         ),
       ),
       builder: (context) {
-        return SizedBox(
-          height: height ?? 280.00,
+        return FractionallySizedBox(
+          heightFactor: heightFactor ?? 0.50,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
@@ -260,16 +284,19 @@ class DialogKh {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                description ?? "Congratulation your work is good",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.w400,
-                  color: descColor ?? Colors.grey,
-                ),
-              ),
+              if (body == null)
+                Text(
+                  description ?? "Congratulation your work is good",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: fontFamily,
+                    fontWeight: FontWeight.w400,
+                    color: descColor ?? Colors.grey,
+                  ),
+                )
+              else
+                body,
               const SizedBox(height: 20),
               if (disableBtn == false)
                 Row(

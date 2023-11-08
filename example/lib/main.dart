@@ -41,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController txt = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +90,40 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: "Congratulations",
                     titleColor: Theme.of(context).primaryColor,
                     description: "Congratulation your work is good",
+                    onConfirm: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                    onCancel: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            /// Show custom dialog
+            SizedBox(
+              height: 50,
+              width: 280,
+              child: ElevatedButton(
+                child: const Text('Show custom dialog'),
+                onPressed: () {
+                  DialogKh.alertDialogKh(
+                    context: context,
+                    isAutoClosed: false, // default: true
+                    disableBtn: false, // disable button is default os you need set disable to false, If you want to use button
+                    title: "Congratulations",
+                    titleColor: Theme.of(context).primaryColor,
+                    description: "Congratulation your work is good",
+                    body: SizedBox(
+                      height: 350,
+                      child: ListView(
+                        children: List.generate(20, (index) => ListTile(title: Text("Item $index"))),
+                      ),
+                    ),
                     onConfirm: () {
                       /// Do something...
                       Navigator.pop(context);
@@ -159,7 +194,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   DialogKh.bottomSheetKh(
                       context: context,
-                      height: 500,
                       header: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
@@ -172,6 +206,36 @@ class _MyHomePageState extends State<MyHomePage> {
                         /// Do something...
                         Navigator.pop(context);
                       });
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            /// Show custom bottom sheet
+            SizedBox(
+              height: 50,
+              width: 280,
+              child: ElevatedButton(
+                child: const Text('Custom bottom sheet'),
+                onPressed: () {
+                  DialogKh.bottomSheetKh(
+                    context: context,
+                    heightFactor: 0.8,
+                    body: SizedBox(
+                      height: 350,
+                      child: ListView(
+                        children: List.generate(20, (index) => ListTile(title: Text("Item $index"))),
+                      ),
+                    ),
+                    onConfirm: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                    onCancel: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                  );
                 },
               ),
             ),
