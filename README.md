@@ -160,7 +160,7 @@ SizedBox(
         onPressed: () {
             DialogKh.bottomSheetKh(
                 context: context,
-                height: 500,
+                heightFactor: 0.5,
                 header: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
