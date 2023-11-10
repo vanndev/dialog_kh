@@ -304,7 +304,7 @@ class DialogKh {
                     Expanded(
                       child: ArtButtonsKh(
                         fontFamily: fontFamily,
-                        text: btnLabelR ?? "Cancel",
+                        text: btnLabelL ?? "Cancel",
                         textColor: labelColorBtnL,
                         backgroundColor: backgroundColorBtnL ?? Colors.black,
                         onPressed: onCancel,
@@ -314,7 +314,7 @@ class DialogKh {
                     Expanded(
                       child: ArtButtonsKh(
                         fontFamily: fontFamily,
-                        text: btnLabelL ?? "Okay",
+                        text: btnLabelR ?? "Okay",
                         textColor: labelColorBtnR,
                         backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
                         onPressed: onConfirm,
