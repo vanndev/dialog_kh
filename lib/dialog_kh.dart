@@ -322,6 +322,7 @@ class DialogKh {
                     ),
                   ],
                 ),
+              const SizedBox(height: 20),
             ],
           ),
         );
