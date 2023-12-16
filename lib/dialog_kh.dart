@@ -32,6 +32,7 @@ class DialogKh {
     Function? onCancel,
     Function? onSubmit,
     TextEditingController? txtEditController,
+    ScrollController? scrollController,
     Color? backgroundColor,
     Widget? header,
     bool? disableBtn = true,
@@ -61,6 +62,7 @@ class DialogKh {
                 borderRadius: BorderRadius.all(Radius.circular(radius ?? 20)),
               ),
               content: SingleChildScrollView(
+                controller: scrollController,
                 child: ListBody(
                   children: [
                     header ?? Container(),
