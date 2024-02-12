@@ -1,6 +1,7 @@
 library dialog_kh;
 
 import 'package:art_buttons_kh/art_buttons_kh.dart';
+import 'package:dialog_kh/basic_layout.dart';
 import 'package:flutter/material.dart';
 
 /// Dialog kh
@@ -61,9 +62,9 @@ class DialogKh {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(radius ?? 20)),
               ),
-              content: SingleChildScrollView(
-                controller: scrollController,
-                child: ListBody(
+              content: BasicLayout(
+                scrollController: scrollController,
+                header: Column(
                   children: [
                     header ?? Container(),
                     const SizedBox(height: 20),
@@ -78,6 +79,10 @@ class DialogKh {
                       ),
                     ),
                     const SizedBox(height: 8),
+                  ],
+                ),
+                content: ListBody(
+                  children: [
                     if (body == null)
                       Text(
                         description ?? "Congratulation your work is good",
@@ -92,32 +97,6 @@ class DialogKh {
                     else
                       body,
                     const SizedBox(height: 20),
-
-                    /// Have two buttons when auto close = true
-                    if (disableBtn == false)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ArtButtonsKh(
-                              fontFamily: fontFamily,
-                              text: btnLabelL ?? "Cancel",
-                              backgroundColor: backgroundColorBtnL ?? Colors.black,
-                              onPressed: onCancel,
-                              textColor: labelColorBtnL,
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: ArtButtonsKh(
-                              fontFamily: fontFamily,
-                              text: btnLabelR ?? "Okay",
-                              backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
-                              onPressed: onConfirm,
-                              textColor: labelColorBtnR,
-                            ),
-                          ),
-                        ],
-                      ),
 
                     /// text field is enable
                     if (isTextField ?? false)
@@ -162,6 +141,32 @@ class DialogKh {
                     bottom ?? Container(),
                   ],
                 ),
+                footer: Column(children: [
+                  if (disableBtn == false)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ArtButtonsKh(
+                            fontFamily: fontFamily,
+                            text: btnLabelL ?? "Cancel",
+                            backgroundColor: backgroundColorBtnL ?? Colors.black,
+                            onPressed: onCancel,
+                            textColor: labelColorBtnL,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: ArtButtonsKh(
+                            fontFamily: fontFamily,
+                            text: btnLabelR ?? "Okay",
+                            backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
+                            onPressed: onConfirm,
+                            textColor: labelColorBtnR,
+                          ),
+                        ),
+                      ],
+                    ),
+                ]),
               ),
             ),
           ),
