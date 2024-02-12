@@ -64,6 +64,7 @@ class DialogKh {
               ),
               content: BasicLayout(
                 scrollController: scrollController,
+                isScrollable: (description?.split('\n').length ?? 0) > 30,
                 header: Column(
                   children: [
                     header ?? Container(),

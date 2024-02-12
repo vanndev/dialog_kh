@@ -32,6 +32,49 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final longMessage = """
+Balík 007I00123225*001001 je ve stavu:
+
+Předáno na VM
+
+Ovšem aby bylo možné provést požadovanou akci, musí být balík v jednom z těchto stavů: 
+	- BOX - plný
+	- BOX - mimo provoz
+	- BOX - nadrozměrná zásilka
+	- Chybně směrováno / vyskladněno
+	- Příjem balíku z LH
+	- První příjem - BEZ výrobního čísla
+	- První příjem - S výrobním číslem
+	- Doklady převzaty
+	- Doručeno
+	- Inventura
+	- K likvidaci
+	- K předání jinému kurýrovi
+	- Kontrola naložení
+	- Likvidace
+	- Převzato do rozvozu
+	- Na skladě
+	- Načtení poškozeného balíku
+	- Nedoručeno
+	- Neexistuje
+	- Nekompletní zásilka
+	- Nepřevzato do rozvozu
+	- Přijato na VM - nová zásilka
+	- Nucené uvolnění do rozvozu
+	- Obecné načtení
+	- Pozdní příjezd kamionu
+	- Předání na depo
+	- Předání osobního odběru
+	- Přesun ve skladu
+	- Převzetí cenné zásilky
+	- Převzetí od jiného kurýra
+	- Pick-up / Svoz
+	- Příjem z LH DEPA ITS
+	- Příjem na sklad
+	- Příjem nedoruč. z rozvozu
+	- Příje
+""";
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -90,6 +133,35 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: "Congratulations",
                     titleColor: Theme.of(context).primaryColor,
                     description: "Congratulation your work is good",
+                    onConfirm: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                    onCancel: () {
+                      /// Do something...
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            /// Show alert dialog with long message
+            SizedBox(
+              height: 50,
+              width: 280,
+              child: ElevatedButton(
+                child: const Text('Show alert dialog with long message'),
+                onPressed: () {
+                  DialogKh.alertDialogKh(
+                    context: context,
+                    isAutoClosed: false, // default: true
+                    disableBtn: false, // disable button is default os you need set disable to false, If you want to use button
+                    header: Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 100),
+                    title: "Long message",
+                    titleColor: Theme.of(context).primaryColor,
+                    description: longMessage,
                     onConfirm: () {
                       /// Do something...
                       Navigator.pop(context);
