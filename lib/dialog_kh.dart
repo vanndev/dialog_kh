@@ -1,6 +1,9 @@
 library dialog_kh;
 
 import 'package:art_buttons_kh/art_buttons_kh.dart';
+import 'package:dialog_kh/basic_layout.dart';
+import 'package:dialog_kh/custom_builder.dart';
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
 
 /// Dialog kh
@@ -32,13 +35,15 @@ class DialogKh {
     Function? onCancel,
     Function? onSubmit,
     TextEditingController? txtEditController,
+    ScrollController? scrollController,
     Color? backgroundColor,
     Widget? header,
     bool? disableBtn = true,
     Widget? bottom,
     double? radius,
+    Widget? body,
   }) async {
-    showGeneralDialog(
+    return showGeneralDialog(
       context: context,
       barrierDismissible: isAutoClosed ?? false,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -59,8 +64,10 @@ class DialogKh {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(radius ?? 20)),
               ),
-              content: SingleChildScrollView(
-                child: ListBody(
+              content: BasicLayout(
+                scrollController: scrollController,
+                isScrollable: (description?.split('\n').length ?? 0) > 30,
+                header: Column(
                   children: [
                     header ?? Container(),
                     const SizedBox(height: 20),
@@ -75,79 +82,117 @@ class DialogKh {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      description ?? "Congratulation your work is good",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: fontFamily,
-                        fontWeight: FontWeight.w400,
-                        color: descColor ?? Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    /// Have two buttons when auto close = true
-                    if (disableBtn == false)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ArtButtonsKh(
-                              fontFamily: fontFamily,
-                              text: btnLabelL ?? "Cancel",
-                              backgroundColor: backgroundColorBtnL ?? Colors.black,
-                              onPressed: onCancel,
-                              textColor: labelColorBtnL,
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: ArtButtonsKh(
-                              fontFamily: fontFamily,
-                              text: btnLabelR ?? "Okay",
-                              backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
-                              onPressed: onConfirm,
-                              textColor: labelColorBtnR,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                    /// text field is enable
-                    if (isTextField ?? false)
-                      TextFormField(
-                        cursorColor: Theme.of(context).primaryColor,
-                        controller: txtEditController,
-                        style: TextStyle(fontSize: 12, color: descColor ?? Colors.grey, fontWeight: FontWeight.w400),
-                        decoration: InputDecoration(
-                          labelText: labelTextField ?? "Comment",
-                          labelStyle: TextStyle(fontSize: 12, color: descColor ?? Colors.grey, fontWeight: FontWeight.w400),
-                          contentPadding: const EdgeInsets.only(bottom: 10, top: 10, left: 10),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                        ),
-                      ),
-                    const SizedBox(height: 10),
-                    if (isTextField ?? false)
-                      ArtButtonsKh(
-                        fontFamily: fontFamily,
-                        text: labelSubmit ?? "Submit",
-                        backgroundColor: backgroundColorBtnSubmit ?? Theme.of(context).primaryColor,
-                        onPressed: onSubmit,
-                      ),
-                    bottom ?? Container(),
                   ],
                 ),
+                content: ListBody(
+                  children: [
+                    CustomBuilder(
+                      builder: (context, child) {
+                        if (description != null && description.length > 50) {
+                          return SizedBox(
+                            height: 320,
+                            child: FadingEdgeScrollView.fromSingleChildScrollView(
+                              gradientFractionOnStart: 0.5,
+                              gradientFractionOnEnd: 0.7,
+                              child: SingleChildScrollView(
+                                controller: ScrollController(),
+                                child: child,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return child;
+                        }
+                      },
+                      child: Wrap(
+                        children: [
+                          if (body == null)
+                            Text(
+                              description ?? "Congratulation your work is good",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: fontFamily,
+                                fontWeight: FontWeight.w400,
+                                color: descColor ?? Colors.grey,
+                              ),
+                            )
+                          else
+                            body,
+                          const SizedBox(height: 20),
+
+                          /// text field is enable
+                          if (isTextField ?? false)
+                            TextFormField(
+                              cursorColor: Theme.of(context).primaryColor,
+                              controller: txtEditController,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: descColor ?? Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              decoration: InputDecoration(
+                                labelText: labelTextField ?? "Comment",
+                                labelStyle: TextStyle(
+                                  fontSize: 12,
+                                  color: descColor ?? Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                contentPadding: const EdgeInsets.only(bottom: 10, top: 10, left: 10),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                              ),
+                            ),
+                          const SizedBox(height: 10),
+                          if (isTextField ?? false)
+                            ArtButtonsKh(
+                              fontFamily: fontFamily,
+                              text: labelSubmit ?? "Submit",
+                              backgroundColor: backgroundColorBtnSubmit ?? Theme.of(context).primaryColor,
+                              onPressed: onSubmit,
+                            ),
+                          bottom ?? Container(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                footer: Column(children: [
+                  if (disableBtn == false)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ArtButtonsKh(
+                            fontFamily: fontFamily,
+                            text: btnLabelL ?? "Cancel",
+                            backgroundColor: backgroundColorBtnL ?? Colors.black,
+                            onPressed: onCancel,
+                            textColor: labelColorBtnL,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: ArtButtonsKh(
+                            fontFamily: fontFamily,
+                            text: btnLabelR ?? "Okay",
+                            backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
+                            onPressed: onConfirm,
+                            textColor: labelColorBtnR,
+                          ),
+                        ),
+                      ],
+                    ),
+                ]),
               ),
             ),
           ),
@@ -173,7 +218,7 @@ class DialogKh {
     Widget? leading,
     Widget? trailing,
   }) async {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -195,12 +240,22 @@ class DialogKh {
                 children: [
                   Text(
                     title ?? 'Success',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: titleColor, fontFamily: fontFamily),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: titleColor,
+                      fontFamily: fontFamily,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     description ?? 'Your request successfully',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: descColor, fontFamily: fontFamily),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: descColor,
+                      fontFamily: fontFamily,
+                    ),
                   ),
                 ],
               ),
@@ -215,13 +270,14 @@ class DialogKh {
 
   static Future<dynamic> bottomSheetKh({
     required BuildContext context,
-    double? height,
+    double? heightFactor,
     double? radius,
     String? title,
     Color? titleColor,
     String? description,
     Color? descColor,
     Widget? header,
+    Widget? body,
     String? fontFamily,
     String? btnLabelR,
     String? btnLabelL,
@@ -233,8 +289,9 @@ class DialogKh {
     Color? labelColorBtnR,
     Color? labelColorBtnL,
   }) async {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(radius ?? 20),
@@ -242,8 +299,8 @@ class DialogKh {
         ),
       ),
       builder: (context) {
-        return SizedBox(
-          height: height ?? 280.00,
+        return FractionallySizedBox(
+          heightFactor: heightFactor ?? 0.50,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             children: [
@@ -260,16 +317,19 @@ class DialogKh {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                description ?? "Congratulation your work is good",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: fontFamily,
-                  fontWeight: FontWeight.w400,
-                  color: descColor ?? Colors.grey,
-                ),
-              ),
+              if (body == null)
+                Text(
+                  description ?? "Congratulation your work is good",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: fontFamily,
+                    fontWeight: FontWeight.w400,
+                    color: descColor ?? Colors.grey,
+                  ),
+                )
+              else
+                body,
               const SizedBox(height: 20),
               if (disableBtn == false)
                 Row(
@@ -277,7 +337,7 @@ class DialogKh {
                     Expanded(
                       child: ArtButtonsKh(
                         fontFamily: fontFamily,
-                        text: btnLabelR ?? "Cancel",
+                        text: btnLabelL ?? "Cancel",
                         textColor: labelColorBtnL,
                         backgroundColor: backgroundColorBtnL ?? Colors.black,
                         onPressed: onCancel,
@@ -287,7 +347,7 @@ class DialogKh {
                     Expanded(
                       child: ArtButtonsKh(
                         fontFamily: fontFamily,
-                        text: btnLabelL ?? "Okay",
+                        text: btnLabelR ?? "Okay",
                         textColor: labelColorBtnR,
                         backgroundColor: backgroundColorBtnR ?? Theme.of(context).primaryColor,
                         onPressed: onConfirm,
@@ -295,6 +355,7 @@ class DialogKh {
                     ),
                   ],
                 ),
+              const SizedBox(height: 20),
             ],
           ),
         );
