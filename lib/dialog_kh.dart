@@ -2,6 +2,8 @@ library dialog_kh;
 
 import 'package:art_buttons_kh/art_buttons_kh.dart';
 import 'package:dialog_kh/basic_layout.dart';
+import 'package:dialog_kh/custom_builder.dart';
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/material.dart';
 
 /// Dialog kh
@@ -84,62 +86,85 @@ class DialogKh {
                 ),
                 content: ListBody(
                   children: [
-                    if (body == null)
-                      Text(
-                        description ?? "Congratulation your work is good",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: fontFamily,
-                          fontWeight: FontWeight.w400,
-                          color: descColor ?? Colors.grey,
-                        ),
-                      )
-                    else
-                      body,
-                    const SizedBox(height: 20),
+                    CustomBuilder(
+                      builder: (context, child) {
+                        if (description != null && description.length > 50) {
+                          return SizedBox(
+                            height: 330,
+                            child: FadingEdgeScrollView.fromSingleChildScrollView(
+                              gradientFractionOnStart: 0.5,
+                              gradientFractionOnEnd: 0.8,
+                              child: SingleChildScrollView(
+                                controller: ScrollController(),
+                                child: child,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return child;
+                        }
+                      },
+                      child: Wrap(
+                        children: [
+                          if (body == null)
+                            Text(
+                              description ?? "Congratulation your work is good",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: fontFamily,
+                                fontWeight: FontWeight.w400,
+                                color: descColor ?? Colors.grey,
+                              ),
+                            )
+                          else
+                            body,
+                          const SizedBox(height: 20),
 
-                    /// text field is enable
-                    if (isTextField ?? false)
-                      TextFormField(
-                        cursorColor: Theme.of(context).primaryColor,
-                        controller: txtEditController,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: descColor ?? Colors.grey,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                          labelText: labelTextField ?? "Comment",
-                          labelStyle: TextStyle(
-                            fontSize: 12,
-                            color: descColor ?? Colors.grey,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          contentPadding: const EdgeInsets.only(bottom: 10, top: 10, left: 10),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                            borderSide: BorderSide(color: Colors.grey.shade400),
-                          ),
-                        ),
+                          /// text field is enable
+                          if (isTextField ?? false)
+                            TextFormField(
+                              cursorColor: Theme.of(context).primaryColor,
+                              controller: txtEditController,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: descColor ?? Colors.grey,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              decoration: InputDecoration(
+                                labelText: labelTextField ?? "Comment",
+                                labelStyle: TextStyle(
+                                  fontSize: 12,
+                                  color: descColor ?? Colors.grey,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                contentPadding: const EdgeInsets.only(bottom: 10, top: 10, left: 10),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400),
+                                ),
+                              ),
+                            ),
+                          const SizedBox(height: 10),
+                          if (isTextField ?? false)
+                            ArtButtonsKh(
+                              fontFamily: fontFamily,
+                              text: labelSubmit ?? "Submit",
+                              backgroundColor: backgroundColorBtnSubmit ?? Theme.of(context).primaryColor,
+                              onPressed: onSubmit,
+                            ),
+                          bottom ?? Container(),
+                        ],
                       ),
-                    const SizedBox(height: 10),
-                    if (isTextField ?? false)
-                      ArtButtonsKh(
-                        fontFamily: fontFamily,
-                        text: labelSubmit ?? "Submit",
-                        backgroundColor: backgroundColorBtnSubmit ?? Theme.of(context).primaryColor,
-                        onPressed: onSubmit,
-                      ),
-                    bottom ?? Container(),
+                    ),
                   ],
                 ),
                 footer: Column(children: [

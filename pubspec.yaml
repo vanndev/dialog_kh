@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   art_buttons_kh: ^0.0.7
+  fading_edge_scrollview: ^2.0.1
 
 dev_dependencies:
   flutter_test:
